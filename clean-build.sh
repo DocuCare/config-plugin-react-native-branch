@@ -12,3 +12,5 @@ git add android ios app.plugin.js build expo-module.config.json package.json REA
 git commit -m "Build files for distribution"
 
 git push origin build --force
+
+git checkout main
