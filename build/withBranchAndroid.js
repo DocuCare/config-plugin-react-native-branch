@@ -23,8 +23,11 @@ function setBranchApiKey(apiKey, androidManifest) {
 }
 const withBranchAndroid = (config, data) => {
     const apiKey = data.apiKey ?? getBranchApiKey(config);
-    if (!apiKey) {
-        throw new Error("Branch API key is required: expo.android.config.branch.apiKey");
+    if (!apiKey || (typeof apiKey === 'string' && apiKey.trim() === '')) {
+        throw new Error("Branch API key is required. Set it via:\n" +
+            "- expo.android.config.branch.apiKey in app.json/app.config.js\n" +
+            "- BRANCH_API_KEY in your environment variables\n" +
+            "- passing it directly to the plugin configuration");
     }
     config = (0, config_plugins_1.withAndroidManifest)(config, (config) => {
         config.modResults = setBranchApiKey(apiKey, config.modResults);

@@ -24,8 +24,11 @@ const withBranchIOS = (config, data) => {
         config.ios = {};
     }
     const apiKey = data.apiKey ?? getBranchApiKey(config);
-    if (!apiKey) {
-        throw new Error("Branch API key is required: expo.ios.config.branch.apiKey");
+    if (!apiKey || (typeof apiKey === 'string' && apiKey.trim() === '')) {
+        throw new Error("Branch API key is required. Set it via:\n" +
+            "- expo.ios.config.branch.apiKey in app.json/app.config.js\n" +
+            "- BRANCH_API_KEY in your environment variables\n" +
+            "- passing it directly to the plugin configuration");
     }
     // Update the infoPlist with the branch key and branch domain
     config = (0, config_plugins_1.withInfoPlist)(config, (config) => {
