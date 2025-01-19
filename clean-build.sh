@@ -1,6 +1,7 @@
 git checkout main
 MAIN_REF=$(git rev-parse HEAD)
 
+git branch -D build || true
 git checkout --orphan build
 
 git rm -rf .
